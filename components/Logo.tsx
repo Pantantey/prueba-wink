@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg"
 function Logo(props: any) {
   return (
     <Svg
-      width={374}
+      width={375}
       height={56}
       viewBox="0 0 374 56"
       fill="none"

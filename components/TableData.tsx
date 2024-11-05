@@ -2,7 +2,12 @@ import React from 'react';
 import { SafeAreaView } from 'react-native';
 import Table from './Table';
 
-const TableData = () => {
+type TableDataProps = {
+  fontsLoaded: boolean;
+};
+
+//Formats currency values to CRC.
+const TableData = ({ fontsLoaded }: TableDataProps) => {
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('es-CR', {
       style: 'currency',
@@ -11,6 +16,7 @@ const TableData = () => {
     }).format(value);
   };
 
+  // Data for the table
   const tableData = [
     { title: 'SINPE móvil - Arturo Robles', subtitle: 'Hoy 10:12 a.m', number: formatCurrency(-1850.00) },
     { title: 'Dato 2', subtitle: 'Detalle 2', number: formatCurrency(305345) },
@@ -21,7 +27,7 @@ const TableData = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Table data={tableData} />
+      <Table data={tableData} fontsLoaded={fontsLoaded}/>
     </SafeAreaView>
   );
 };

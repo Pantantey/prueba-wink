@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { useFonts, RedHatDisplay_400Regular, RedHatDisplay_700Bold } from '@expo-google-fonts/red-hat-display';
-import * as SplashScreen from 'expo-splash-screen';
 
-SplashScreen.preventAutoHideAsync();
 
 type TableRow = {
   title: string;
@@ -12,23 +9,16 @@ type TableRow = {
 };
 
 type TableComponentProps = {
-  data: TableRow[];
+  data: TableRow[]; //Array of row data to display in the table.
+  fontsLoaded: boolean;
 };
 
-const TableComponent = ({ data }: TableComponentProps) => {
-  const [fontsLoaded] = useFonts({
-    RedHatDisplay_400Regular,
-    RedHatDisplay_700Bold,
-  });
+const TableComponent = ({ data, fontsLoaded }: TableComponentProps) => {
+  
 
-  useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync(); // Oculta la pantalla de carga cuando las fuentes se han cargado
-    }
-  }, [fontsLoaded]);
-
+  // Return null if fonts are not loaded yet
   if (!fontsLoaded) {
-    return null; // No muestra nada hasta que las fuentes se hayan cargado
+    return null; 
   }
 
   return (
@@ -40,10 +30,10 @@ const TableComponent = ({ data }: TableComponentProps) => {
         renderItem={({ item }) => (
           <View style={styles.row}>
             <View style={styles.leftContainer}>
-              <Text style={[styles.titleText]}>{item.title}</Text>
-              <Text style={[styles.subtitleText]}>{item.subtitle}</Text>
+              <Text style={styles.titleText}>{item.title}</Text>
+              <Text style={styles.subtitleText}>{item.subtitle}</Text>
             </View>
-            <Text style={[styles.rightText]}>{item.number}</Text>
+            <Text style={styles.rightText}>{item.number}</Text>
           </View>
         )}
       />
@@ -51,11 +41,10 @@ const TableComponent = ({ data }: TableComponentProps) => {
   );
 };
 
+// Styles for the TableComponent
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     height: 'auto',
-    backgroundColor: '#f5f5f5',
   },
   header: {
     fontSize: 20,
@@ -73,7 +62,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 14,
-    fontWeight: '500',
     fontFamily: "RedHatDisplay_400Regular"
   },
   subtitleText: {
@@ -85,7 +73,6 @@ const styles = StyleSheet.create({
     flex: 0.4,
     textAlign: 'right',
     fontSize: 14,
-    fontWeight: 'bold',
     fontFamily: 'RedHatDisplay_700Bold',
     color: '#F44336',
   },
