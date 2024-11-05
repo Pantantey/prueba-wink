@@ -30,6 +30,7 @@ const Account = ({fontsLoaded}: AccountProps) => {
   );
 };
 
+// component styles
 const styles = StyleSheet.create({
   container: {
     height: '100%',

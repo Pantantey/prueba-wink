@@ -8,12 +8,12 @@ type TableRow = {
   number: string;
 };
 
-type TableComponentProps = {
+type TableProps = {
   data: TableRow[]; //Array of row data to display in the table.
   fontsLoaded: boolean;
 };
 
-const TableComponent = ({ data, fontsLoaded }: TableComponentProps) => {
+const Table = ({ data, fontsLoaded }: TableProps) => {
   
 
   // Return null if fonts are not loaded yet
@@ -41,7 +41,7 @@ const TableComponent = ({ data, fontsLoaded }: TableComponentProps) => {
   );
 };
 
-// Styles for the TableComponent
+// component styles
 const styles = StyleSheet.create({
   container: {
     height: 'auto',
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TableComponent;
+export default Table;
