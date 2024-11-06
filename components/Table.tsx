@@ -10,16 +10,11 @@ type TableRow = {
 
 type TableProps = {
   data: TableRow[]; //Array of row data to display in the table.
-  fontsLoaded: boolean;
 };
 
-const Table = ({ data, fontsLoaded }: TableProps) => {
+const Table = ({ data }: TableProps) => {
   
 
-  // Return null if fonts are not loaded yet
-  if (!fontsLoaded) {
-    return null; 
-  }
 
   return (
     <View style={styles.container}>

@@ -1,15 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-type AccountProps = {
-  fontsLoaded: boolean;
-};
 
-const Account = ({fontsLoaded}: AccountProps) => {
-  // Return null if fonts are not loaded yet
-  if (!fontsLoaded) {
-    return null; 
-  }
+const Account = () => {
 
   // Format the balance with Costa Rican colones symbol
   const balance = new Intl.NumberFormat('es-CR', {
@@ -23,7 +16,7 @@ const Account = ({fontsLoaded}: AccountProps) => {
     <View style={styles.container}>
       <Text style={styles.title}>Cuenta Colones</Text>
       <Text style={styles.text}>Saldo disponible</Text>
-      <Text style={styles.balance}>{balance}6</Text>
+      <Text style={styles.balance}>{balance}</Text>
       <Text style={styles.text}>¿Qué querés hacer?</Text>
 
     </View>
