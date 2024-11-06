@@ -1,4 +1,3 @@
-// TransactionDetails.tsx
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
@@ -23,6 +22,7 @@ const TransactionDetails = ({  date, description, movementType }: TransactionDet
   );
 };
 
+// component styles
 const styles = StyleSheet.create({
   container: {
     height: '70%',

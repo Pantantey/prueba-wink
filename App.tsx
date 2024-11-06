@@ -1,4 +1,3 @@
-// App.tsx
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -18,12 +17,13 @@ export type RootStackParamList = {
 };
 
 const App = () => {
-  // Cargar fuentes personalizadas
+  // Load fonts
   const [fontsLoaded] = useFonts({
     RedHatDisplay_400Regular,
     RedHatDisplay_700Bold,
   });
 
+  //hide splashScreen
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();

@@ -1,4 +1,3 @@
-// TransactionHeader.tsx
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
@@ -22,6 +21,7 @@ const TransactionHeader = ({ transactionType, transactionAmount, initials } : Tr
   );
 };
 
+// component styles
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',

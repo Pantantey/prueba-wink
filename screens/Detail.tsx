@@ -16,37 +16,28 @@ const Detail = ({ fontsLoaded }: DetailProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.transactionHeader}>
-        <TransactionHeader
-          transactionType="SINPE móvil - Carlos Naranjo"
-          transactionAmount="₡30,000.00"
-          initials="CN"
-        />
-      </View>
-      <View style={styles.transactionDetails}>
-        <TransactionDetails
-          date="12 de Octubre 2022, 12:15 pm"
-          description="Fiesta de Hallowink"
-          movementType="SINPE móvil"
-        />
-      </View>
+      <TransactionHeader
+        transactionType="SINPE móvil - Carlos Naranjo"
+        transactionAmount="₡30,000.00"
+        initials="CN"
+      />
+      <TransactionDetails
+        date="12 de Octubre 2022, 12:15 pm"
+        description="Fiesta de Hallowink"
+        movementType="SINPE móvil"
+      />
 
       <Button title="Volver" onPress={() => navigation.goBack()} />
     </View>
   );
 };
 
+// component styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
     backgroundColor: "#fff",
-  },
-  transactionHeader: {
-    
-  },
-  transactionDetails: {
-
   },
 });
 

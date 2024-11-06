@@ -44,6 +44,7 @@ const Home = ({ fontsLoaded } : HomeProps) => {
   );
 };
 
+// component styles
 const styles = StyleSheet.create({
   container: {
     height: "100%",
