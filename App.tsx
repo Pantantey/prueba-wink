@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
   Home: any;
-  Detail: { fontsLoaded?: boolean };
+  Detail: any;
   SelectContact: any;
   SendMoney: any;
 };
@@ -41,12 +41,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          options={{
-            headerShown: false,
-          }}
-        >
+        <Stack.Screen name="Home" options={{ headerShown: false }}>
           {(props) => <Home {...props} fontsLoaded={fontsLoaded} />}
         </Stack.Screen>
 

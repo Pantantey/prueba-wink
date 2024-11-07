@@ -6,7 +6,7 @@ interface ButtonProps {
   onPress: () => void;
 }
 
-const CustomButton = ({ title, onPress}: ButtonProps) => {
+const Button = ({ title, onPress}: ButtonProps) => {
   return (
     <TouchableOpacity style={[styles.button]} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomButton;
+export default Button;

@@ -1,31 +1,50 @@
-// SearchBar.tsx
 import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
+
+import SearchIcon from './SearchIcon';
 
 interface SearchBarProps {
   searchQuery: string;
   onSearch: (query: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, onSearch }) => {
+const SearchBar = ({ searchQuery, onSearch }: SearchBarProps) => {
   return (
-    <TextInput
-      style={styles.input}
-      placeholder="Search Contacts"
-      value={searchQuery}
-      onChangeText={onSearch}
-    />
+    <View style={styles.container}>
+
+      <SearchIcon />
+      
+      <TextInput
+        style={styles.input}
+        placeholder="Buscá por nombre o número"
+        value={searchQuery}
+        onChangeText={onSearch}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    borderColor: 'gray',
+  container: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 48,
+    borderColor: '#CECECE',
+    marginHorizontal: 13,
     borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 10,
+    borderRadius: 24,
+    paddingStart: 20,
     marginBottom: 20,
+    gap: 15,
+  },
+  input: {
+    flex: 1,
+    height: '100%',
+    marginBottom: 2,
+    fontSize: 14,
+    fontFamily: "RedHatDisplay_400Regular",
+    color: '#787878',
   },
 });
 

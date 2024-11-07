@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
 
+//navigation
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 
@@ -60,16 +61,17 @@ const styles = StyleSheet.create({
   },
   account: {
     height: "16%",
-    width: 1000,
+    width: 2000,
     alignItems: "flex-start",
     marginVertical: 5,
   },
   sinpe: {
-    height: "150%",
+    height: "151%",
   },
   touchableSinpe: {
     height: "8%",
     alignItems: 'center',
+    marginBottom: 10
   },
   table: {
     height: "68%",

@@ -2,21 +2,28 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
+//navigation
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
+
+type SendMoneyNavigationProp = NativeStackNavigationProp<RootStackParamList, 'SendMoney'>;
+
 //components
 import Button from "../components/Button";
 
 const SendMoney = ({ route }: any) => {
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<SendMoneyNavigationProp>();
   
-  // Obtener el contacto desde los parámetros de la ruta
+  // Get contact
   const { contact } = route.params;
 
-  // Estado para manejar los inputs
+  // state to use inputs
   const [amount, setAmount] = useState('');
   const [detail, setDetail] = useState('');
 
-  // Función para formatear el monto y asegurarse de que solo sean números
+  // Function to format the amount
+  //only write numbers
   const handleAmountChange = (text: string) => {
     if (/^\d*$/.test(text)) {
       setAmount(text);
@@ -39,7 +46,7 @@ const SendMoney = ({ route }: any) => {
             {contact.firstName} {contact.lastName}
           </Text>
           <Text style={styles.phone}>
-            {contact.phoneNumbers && contact.phoneNumbers.length > 0 ? contact.phoneNumbers[0].number : 'No phone number available'}
+            {contact.phoneNumbers && contact.phoneNumbers.length > 0 ? contact.phoneNumbers[0].number : 'No hay numero de telefono disponible'}
           </Text>
         </View>
       </View>
