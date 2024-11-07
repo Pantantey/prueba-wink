@@ -32,7 +32,7 @@ const Home = ({ fontsLoaded } : HomeProps) => {
       </View>
 
       <View style={styles.touchableSinpe}>
-        <TouchableOpacity style={styles.sinpe} onPress={() => navigation.navigate("Detail", { fontsLoaded })}>
+        <TouchableOpacity style={styles.sinpe} onPress={() => navigation.navigate("SelectContact")}>
           <Sinpe />
         </TouchableOpacity>
       </View>
@@ -60,11 +60,12 @@ const styles = StyleSheet.create({
   },
   account: {
     height: "16%",
+    width: 1000,
     alignItems: "flex-start",
     marginVertical: 5,
   },
   sinpe: {
-    height: "100%",
+    height: "150%",
   },
   touchableSinpe: {
     height: "8%",
