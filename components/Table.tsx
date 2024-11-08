@@ -39,7 +39,7 @@ const Table = ({ data }: TableProps) => {
 // component styles
 const styles = StyleSheet.create({
   container: {
-    height: 'auto',
+    
   },
   header: {
     fontSize: 20,

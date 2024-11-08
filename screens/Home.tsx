@@ -24,7 +24,7 @@ const Home = ({ fontsLoaded } : HomeProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.logo}>
+      <View>
         <Logo />
       </View>
 
@@ -33,7 +33,7 @@ const Home = ({ fontsLoaded } : HomeProps) => {
       </View>
 
       <View style={styles.touchableSinpe}>
-        <TouchableOpacity style={styles.sinpe} onPress={() => navigation.navigate("SelectContact")}>
+        <TouchableOpacity onPress={() => navigation.navigate("SelectContact")}>
           <Sinpe />
         </TouchableOpacity>
       </View>
@@ -48,33 +48,24 @@ const Home = ({ fontsLoaded } : HomeProps) => {
 // component styles
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
+    flex: 1,
     backgroundColor: "#fff",
     paddingTop: Constants.statusBarHeight,
     paddingLeft: 20,
     paddingRight: 20,
     gap: 10,
   },
-  logo: {
-    height: "7%",
-    alignItems: "center",
-  },
   account: {
-    height: "16%",
-    width: 2000,
     alignItems: "flex-start",
-    marginVertical: 5,
-  },
-  sinpe: {
-    height: "151%",
+    marginTop: 5,
   },
   touchableSinpe: {
-    height: "8%",
+    width: "100%",
     alignItems: 'center',
-    marginBottom: 10
   },
   table: {
-    height: "68%",
+    flex: 1,
+    width: "100%",
     marginTop: 25,
   },
 });

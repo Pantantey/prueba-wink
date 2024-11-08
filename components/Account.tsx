@@ -26,7 +26,6 @@ const Account = () => {
 // component styles
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
