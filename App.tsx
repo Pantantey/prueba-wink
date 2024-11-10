@@ -14,12 +14,14 @@ import Detail from "./screens/Detail";
 import SelectContact from "./screens/SelectContact";
 import SendMoney from "./screens/SendMoney";
 
+import { Transaction } from "./screens/Home";
+
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
   Home: any;
-  Detail: any;
+  Detail: { transaction: Transaction };
   SelectContact: any;
   SendMoney: any;
 };
@@ -31,12 +33,17 @@ const App = () => {
     RedHatDisplay_700Bold,
   });
 
-  //hide splashScreen
+  // Hide SplashScreen once fonts are loaded
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  // Ensure fonts are loaded before rendering content
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
@@ -52,12 +59,13 @@ const App = () => {
             headerTintColor: "#4C51F7",
             headerTitleAlign: "center",
             headerShadowVisible: false,
-            headerTitleStyle: fontsLoaded
-              ? { fontFamily: "RedHatDisplay_700Bold", fontSize: 16 }
-              : {},
+            headerTitleStyle: {
+              fontFamily: "RedHatDisplay_700Bold",
+              fontSize: 16,
+            },
           }}
         >
-          {(props) => <Detail {...props} fontsLoaded={fontsLoaded} />}
+          {(props) => <Detail {...props} />}
         </Stack.Screen>
 
         <Stack.Screen
@@ -68,9 +76,10 @@ const App = () => {
             headerTintColor: "#4C51F7",
             headerTitleAlign: "center",
             headerShadowVisible: false,
-            headerTitleStyle: fontsLoaded
-              ? { fontFamily: "RedHatDisplay_700Bold", fontSize: 16 }
-              : {},
+            headerTitleStyle: {
+              fontFamily: "RedHatDisplay_700Bold",
+              fontSize: 16,
+            },
           }}
         />
 
@@ -82,9 +91,10 @@ const App = () => {
             headerTintColor: "#4C51F7",
             headerTitleAlign: "center",
             headerShadowVisible: false,
-            headerTitleStyle: fontsLoaded
-              ? { fontFamily: "RedHatDisplay_700Bold", fontSize: 16 }
-              : {},
+            headerTitleStyle: {
+              fontFamily: "RedHatDisplay_700Bold",
+              fontSize: 16,
+            },
           }}
         />
       </Stack.Navigator>

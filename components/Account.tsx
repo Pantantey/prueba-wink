@@ -1,29 +1,38 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
+type AccountProps = {
+  balance: number | null;
+  error: string | null;
+};
 
-const Account = () => {
+const Account = ({ balance, error }: AccountProps) => {
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.error}>{error}</Text>
+      </View>
+    );
+  }
 
-  // Format the balance with Costa Rican colones symbol
-  const balance = new Intl.NumberFormat('es-CR', {
-    style: 'currency',
-    currency: 'CRC',
-    minimumFractionDigits: 2,
-  }).format(36850.00);
+  // Format balance
+  const formattedBalance = balance !== null 
+    ? `₡${balance.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`
+    : '₡0.00'; // Default value in case of error
 
-  //return our account data
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cuenta Colones</Text>
       <Text style={styles.text}>Saldo disponible</Text>
-      <Text style={styles.balance}>{balance}</Text>
+      <Text style={styles.balance}>{formattedBalance}</Text>
       <Text style={styles.text}>¿Qué querés hacer?</Text>
-
     </View>
   );
 };
 
-// component styles
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
@@ -44,6 +53,11 @@ const styles = StyleSheet.create({
     fontFamily: 'RedHatDisplay_700Bold',
     marginTop: 10,
     marginBottom: 20,
+  },
+  error: {
+    fontSize: 16,
+    fontFamily: 'RedHatDisplay_400Regular',
+    color: 'red',
   }
 });
 

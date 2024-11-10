@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, SectionList } from 'react-native';
+import { View, Text, StyleSheet, SectionList } from 'react-native';
+import { useRoute } from '@react-navigation/native'; // Importa useRoute de @react-navigation/native
 import * as Contacts from 'expo-contacts';
 
-//components
+// Components
 import SearchBar from '../components/SearchBar';
 import ArrowIcon from '../components/ArrowIcon';
 
 const SelectContact = ({ navigation }: any) => {
+  const route = useRoute(); 
+  const { transactionId }: any = route.params; // get transactionId to send to SendMoney
+  
+
   const [contacts, setContacts] = useState<any[]>([]);
   const [filteredContacts, setFilteredContacts] = useState<any[]>([]);
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [contactSections, setContactSections] = useState<any[]>([]);
 
-  // Function to request permissions
+  // Request permission for contacts
   const requestContactsPermission = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {
@@ -23,7 +28,7 @@ const SelectContact = ({ navigation }: any) => {
     }
   };
 
-  // Function to load contacts
+  // Load contacts
   const loadContacts = async () => {
     if (permissionGranted) {
       const { data } = await Contacts.getContactsAsync({
@@ -35,26 +40,23 @@ const SelectContact = ({ navigation }: any) => {
     }
   };
 
-  // Function to filter contacts
+  // Search contacts
   const search = (query: string) => {
     setSearchQuery(query);
-  
-    // remove spaces from search
     const cleanedQuery = query.replace(/\s+/g, '').toLowerCase();
-  
+
     const filtered = contacts.filter((contact) => {
       const fullName = `${contact.firstName} ${contact.lastName}`.replace(/\s+/g, '').toLowerCase();
       const phoneNumber = contact.phoneNumbers && contact.phoneNumbers[0]?.number?.replace(/\s+/g, '').toLowerCase();
-  
-      return (
-        fullName.includes(cleanedQuery) || (phoneNumber && phoneNumber.includes(cleanedQuery))
-      );
+
+      return fullName.includes(cleanedQuery) || (phoneNumber && phoneNumber.includes(cleanedQuery));
     });
+
     setFilteredContacts(filtered);
     groupContactsByLetter(filtered);
   };
 
-  // Group contacts by first letter of the first name
+  // Group contacts by the first letter of the first name
   const groupContactsByLetter = (contacts: any[]) => {
     const grouped = contacts.reduce((groups, contact) => {
       const firstLetter = contact.firstName.charAt(0).toUpperCase();
@@ -73,7 +75,11 @@ const SelectContact = ({ navigation }: any) => {
     setContactSections(sections);
   };
 
-  // Request permissions and load contacts
+  // Function to select contact and navigate to SendMoney with both contact and transactionId
+  const selectContact = (contact: any) => {
+    navigation.navigate('SendMoney', { contact, transactionId });
+  };
+
   useEffect(() => {
     const loadData = async () => {
       await requestContactsPermission();
@@ -82,24 +88,18 @@ const SelectContact = ({ navigation }: any) => {
     loadData();
   }, [permissionGranted]);
 
-  // Function to get the contact's initials
+  // Function to get contact initials
   const getInitials = (firstName: string, lastName: string) => {
     const firstInitial = firstName.charAt(0).toUpperCase();
     const lastInitial = lastName.charAt(0).toUpperCase();
     return `${firstInitial}${lastInitial}`;
   };
 
-  // Function to select contact and navigate to SendMoney
-  const selectContact = (contact: any) => {
-    navigation.navigate('SendMoney', { contact });
-  };
-
   return (
     <View style={{ flex: 1, paddingTop: 30, paddingHorizontal: 7, backgroundColor: '#fff' }}>
-
       <SearchBar searchQuery={searchQuery} onSearch={search} />
 
-      {/* SectionList to display contacts with letters */}
+      {/* SectionList to display contacts grouped by first letter */}
       <SectionList
         sections={contactSections}
         keyExtractor={(item, index) => item.id + index}
@@ -109,7 +109,7 @@ const SelectContact = ({ navigation }: any) => {
               {/* Contact Icon */}
               <View style={styles.icon}>
                 <Text style={styles.iconText}>
-                  {getInitials(item.firstName, item.lastName)} 
+                  {getInitials(item.firstName, item.lastName)}
                 </Text>
               </View>
               <View style={styles.contactInfo}>
@@ -124,7 +124,7 @@ const SelectContact = ({ navigation }: any) => {
               </View>
               <ArrowIcon style={styles.arrowIcon} />
             </View>
-            {/* Add a separator line after the last contact in the section */}
+            {/* Add separator line */}
             {index === section.data.length - 1 && <View style={styles.separatorLine} />}
           </View>
         )}
@@ -138,6 +138,7 @@ const SelectContact = ({ navigation }: any) => {
   );
 };
 
+//component styles
 const styles = StyleSheet.create({
   contactContainer: {
     flexDirection: 'row',

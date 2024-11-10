@@ -1,31 +1,58 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { Text, FlatList } from 'react-native';
 import Table from './Table';
 
+type Transaction = {
+  Amount: number;
+  ContactName: string;
+  DateHour: string;
+  TransactionType: string;
+  TransactionId: number;
+};
 
-//Formats currency values to CRC.
-const TableData = () => {
+const TableData = ({ transactions, onSelectTransaction }: { transactions: Transaction[], onSelectTransaction: (transaction: Transaction) => void }) => {
+  // if any transaction exist
+  if (!transactions || transactions.length === 0) {
+    return <Text style={{ fontSize: 12, fontFamily: 'RedHatDisplay_700Bold' }}>No ha realizado ninguna transacción.</Text>;
+  }
+
+  // format currency
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('es-CR', {
-      style: 'currency',
-      currency: 'CRC',
+    return `¢${value.toLocaleString('en-US', {
       minimumFractionDigits: 2,
-    }).format(value);
+      maximumFractionDigits: 2,
+    })}`;
   };
 
-  // Data for the table
-  const tableData = [
-    { title: 'SINPE móvil - Arturo Robles', subtitle: 'Hoy 10:12 a.m', number: formatCurrency(-1850.00) },
-    { title: 'Dato 2', subtitle: 'Detalle 2', number: formatCurrency(305345) },
-    { title: 'Dato 3', subtitle: 'Detalle 3', number: formatCurrency(723453) },
-    { title: 'Dato 4', subtitle: 'Detalle 3', number: formatCurrency(72546) },
-    { title: 'SINPE móvil - Maria Pérez', subtitle: '11/10/22 11:30 a.m', number: formatCurrency(1850.00) },
-  ];
+  // Format hour
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const dateFormatter = new Intl.DateTimeFormat('es-CR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+    const timeFormatter = new Intl.DateTimeFormat('es-CR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+    return `${dateFormatter.format(date)} ${timeFormatter.format(date).toLowerCase()}`;
+  };
+
+  // Format to send data to table
+  const mappedTransactions = transactions.map((item) => ({
+    title: `${item.TransactionType} - ${item.ContactName}`,
+    subtitle: `${formatDate(item.DateHour)}`,
+    number: `- ${formatCurrency(item.Amount)}`,
+    transaction: item,
+  }));
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Table data={tableData} />
-    </SafeAreaView>
+    <Table
+      data={mappedTransactions}
+      onSelectTransaction={onSelectTransaction} // send transaction selected
+    />
   );
 };
 

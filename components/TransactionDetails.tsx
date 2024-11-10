@@ -25,7 +25,7 @@ const TransactionDetails = ({  date, description, movementType }: TransactionDet
 // component styles
 const styles = StyleSheet.create({
   container: {
-    height: '70%',
+    
   },
   label: {
     fontSize: 12,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 interface TransactionHeaderProps {
   transactionType: string;
@@ -11,7 +11,7 @@ const TransactionHeader = ({ transactionType, transactionAmount, initials } : Tr
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Text style={styles.avatarText}>{initials}</Text>
+        <Text style={styles.iconText}>{initials}</Text>
       </View>
       <View style={styles.detailsContainer}>
         <Text style={styles.transactionType}>{transactionType}</Text>
@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 7,
   },
-  avatarText: {
+  iconText: {
     color: '#3130C6',
+    fontFamily: "RedHatDisplay_400Regular",
     fontSize: 18,
   },
   detailsContainer: {

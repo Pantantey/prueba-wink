@@ -1,50 +1,43 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
 type TableRow = {
   title: string;
   subtitle: string;
   number: string;
+  transaction: any;
 };
 
 type TableProps = {
-  data: TableRow[]; //Array of row data to display in the table.
+  data: TableRow[];
+  onSelectTransaction: (transaction: any) => void; // Function to transaction selection
 };
 
-const Table = ({ data }: TableProps) => {
-  
-
-
+const Table = ({ data, onSelectTransaction }: TableProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Movimientos</Text>
       <FlatList
         data={data}
-        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <View style={styles.row}>
-            <View style={styles.leftContainer}>
-              <Text style={styles.titleText}>{item.title}</Text>
-              <Text style={styles.subtitleText}>{item.subtitle}</Text>
+          <TouchableOpacity onPress={() => onSelectTransaction(item.transaction)}>
+            <View style={styles.row}>
+              <View style={styles.leftContainer}>
+                <Text style={styles.titleText}>{item.title}</Text>
+                <Text style={styles.subtitleText}>{item.subtitle}</Text>
+              </View>
+              <Text style={styles.rightText}>{item.number}</Text>
             </View>
-            <Text style={styles.rightText}>{item.number}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
   );
 };
 
-// component styles
+//component styles
 const styles = StyleSheet.create({
   container: {
-    
-  },
-  header: {
-    fontSize: 20,
-    marginBottom: 12,
-    fontFamily: 'RedHatDisplay_700Bold',
+
   },
   row: {
     flexDirection: 'row',
@@ -57,12 +50,12 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 14,
-    fontFamily: "RedHatDisplay_400Regular"
+    fontFamily: "RedHatDisplay_400Regular",
   },
   subtitleText: {
     fontSize: 12,
     color: '#555',
-    fontFamily: "RedHatDisplay_400Regular"
+    fontFamily: "RedHatDisplay_400Regular",
   },
   rightText: {
     flex: 0.4,
