@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, FlatList } from 'react-native';
+import { Text } from 'react-native';
 import Table from './Table';
 
 type Transaction = {
@@ -24,20 +24,34 @@ const TableData = ({ transactions, onSelectTransaction }: { transactions: Transa
     })}`;
   };
 
-  // Format hour
+  // Format date and time
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const dateFormatter = new Intl.DateTimeFormat('es-CR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: '2-digit',
-    });
+    const today = new Date();
+
+    // Check if the transaction date is today
+    const isToday =
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
+
+    // Format time only
     const timeFormatter = new Intl.DateTimeFormat('es-CR', {
       hour: '2-digit',
       minute: '2-digit',
       hour12: true,
     });
-    return `${dateFormatter.format(date)} ${timeFormatter.format(date).toLowerCase()}`;
+
+    // Format date as dd/MM/yy
+    const dateFormatter = new Intl.DateTimeFormat('es-CR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+
+    return isToday
+      ? `Hoy ${timeFormatter.format(date).toLowerCase()}`
+      : `${dateFormatter.format(date)} ${timeFormatter.format(date).toLowerCase()}`;
   };
 
   // Format to send data to table
@@ -51,7 +65,7 @@ const TableData = ({ transactions, onSelectTransaction }: { transactions: Transa
   return (
     <Table
       data={mappedTransactions}
-      onSelectTransaction={onSelectTransaction} // send transaction selected
+      onSelectTransaction={onSelectTransaction}
     />
   );
 };

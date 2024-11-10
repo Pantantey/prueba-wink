@@ -104,10 +104,10 @@ const Home = ({ fontsLoaded }: HomeProps) => {
       const transactionsData = data.transactions || [];
       setTransactions(transactionsData);
 
-      // Inicializa las transacciones a mostrar con los primeros 10 elementos
+      // show first 10 items
       setVisibleTransactions(transactionsData.slice(0, 10));
 
-      // Guarda el ID de la primera transacción (si existe)
+      // save the first transactionID
       if (transactionsData.length > 0) {
         setFirstTransactionId(transactionsData[0].TransactionId);
       }
@@ -124,7 +124,7 @@ const Home = ({ fontsLoaded }: HomeProps) => {
 
     const nextTransactions = transactions.slice(visibleTransactions.length, visibleTransactions.length + 10);
     if (nextTransactions.length === 0) {
-      setIsLoadingMore(false);  // No hay más transacciones
+      setIsLoadingMore(false);  // No more transactions
       return;
     }
 
